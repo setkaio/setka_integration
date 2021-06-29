@@ -10,9 +10,9 @@ module SetkaIntegration
 
       def call
         uri = URI(endpoint)
-        uri.query = URI.encode_www_form(request_params)
+        uri.query = URI.encode_www_form(request_params) unless allowed_params.empty?
 
-        res = Net::HTTP.get_response(uri)
+        Net::HTTP.get_response(uri)
       end
 
       class << self
@@ -27,8 +27,12 @@ module SetkaIntegration
         'https://editor.setka.io/api/v2/integration'
       end
 
+      def allowed_params
+        {}
+      end
+
       def request_params
-        raise NotImplementedError
+        params.slice(*allowed_params.keys)
       end
 
       attr_accessor :params
