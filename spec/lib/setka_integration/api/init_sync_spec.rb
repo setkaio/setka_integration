@@ -14,12 +14,21 @@ RSpec.describe SetkaIntegration::Api::InitSync, type: :request do
           result = described_class.new(params).()
           body = JSON.parse(result.body)
 
-          aggregate_failures do
-            expect(result.code).to eq '200'
-            expect(body['public_token']).not_to be_empty
-            expect(body.dig('plugins', 0, 'url')).not_to be_empty
-            expect(body.dig('editor_files', 0, 'url')).not_to be_empty
-            expect(body.dig('theme_files', 0, 'url')).not_to be_empty
+          expect(result.code).to eq '200'
+          expect(body['public_token']).not_to be_empty
+          expect(body.dig('plugins', 0, 'url')).not_to be_empty
+
+          aggregate_failures 'editor files' do
+            expect(body['editor_files'].find { |file| file['filetype'] == 'css' }['url']).not_to be_empty
+            expect(body['editor_files'].find { |file| file['filetype'] == 'js' }['url']).not_to be_empty
+          end
+
+          aggregate_failures 'theme files' do
+            expect(body['editor_files'].find { |file| file['filetype'] == 'css' }['url']).not_to be_empty
+            expect(body['editor_files'].find { |file| file['filetype'] == 'json' }['url']).not_to be_empty
+          end
+
+          aggregate_failures 'standalone files' do
             expect(body.dig('standalone_styles', 'common', 0, 'url')).not_to be_empty
             expect(body.dig('standalone_styles', 'themes', 0, 'url')).not_to be_empty
             expect(body.dig('standalone_styles', 'layouts', 0, 'url')).not_to be_empty
