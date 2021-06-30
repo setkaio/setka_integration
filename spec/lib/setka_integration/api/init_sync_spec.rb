@@ -10,7 +10,7 @@ RSpec.describe SetkaIntegration::Api::InitSync, type: :request do
       end
 
       it 'have Setka editor fields' do
-        VCR.use_cassette 'with_valid_token', allow_playback_repeats: true do
+        VCR.use_cassette 'init_sync/with_valid_token', allow_playback_repeats: true do
           result = described_class.new(params).()
           body = JSON.parse(result.body)
 
@@ -25,7 +25,7 @@ RSpec.describe SetkaIntegration::Api::InitSync, type: :request do
 
           aggregate_failures 'theme files' do
             expect(body['editor_files'].find { |file| file['filetype'] == 'css' }['url']).not_to be_empty
-            expect(body['editor_files'].find { |file| file['filetype'] == 'json' }['url']).not_to be_empty
+            expect(body['editor_files'].find { |file| file['filetype'] == 'js' }['url']).not_to be_empty
           end
 
           aggregate_failures 'standalone files' do
@@ -43,7 +43,7 @@ RSpec.describe SetkaIntegration::Api::InitSync, type: :request do
       end
 
       it 'deny access' do
-        VCR.use_cassette 'with_invalid_token' do
+        VCR.use_cassette 'init_sync/with_invalid_token' do
           expect(described_class.new(params).().code).to eq '401'
         end
       end
@@ -51,7 +51,7 @@ RSpec.describe SetkaIntegration::Api::InitSync, type: :request do
 
     context 'without token' do
       it 'deny access' do
-        VCR.use_cassette 'without_token' do
+        VCR.use_cassette 'init_sync/without_token' do
           expect(described_class.new.().code).to eq '401'
         end
       end
