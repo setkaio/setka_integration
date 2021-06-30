@@ -1,5 +1,6 @@
 require 'uri'
 require 'net/http'
+require 'byebug'
 
 module SetkaIntegration
   module Api
@@ -28,11 +29,11 @@ module SetkaIntegration
       end
 
       def allowed_params
-        {}
+        []
       end
 
       def request_params
-        params.slice(*allowed_params.keys)
+        params.slice(*allowed_params)
       end
 
       attr_accessor :params

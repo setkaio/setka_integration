@@ -1,3 +1,4 @@
+require 'spec_helper'
 require 'setka_integration/api/v2_request'
 require 'json'
 
