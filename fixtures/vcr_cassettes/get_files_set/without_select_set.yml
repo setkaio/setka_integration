@@ -1,0 +1,59 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://editor.setka.io/api/v2/integration?select=invalid_select&token=UYHtFJUvAs7BOkoZZiVmryaFZltecJGT
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - editor.setka.io
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      X-Download-Options:
+      - noopen
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      X-Ratelimit-Limit:
+      - '5'
+      X-Ratelimit-Remaining:
+      - '4'
+      X-Ratelimit-Reset:
+      - '1'
+      Content-Type:
+      - application/json; charset=utf-8
+      Etag:
+      - W/"397e25de2e9735e11cb3c37b4e83a809"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - b2343a4c-e0d7-4fdb-9c4b-707243a498a4
+      X-Runtime:
+      - '0.166337'
+      Vary:
+      - Origin
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '{"public_token":"BzQQeLX47g1oUJxLvKewXTMpiWdNCubQ"}'
+  recorded_at: Thu, 01 Jul 2021 19:27:05 GMT
+recorded_with: VCR 6.0.0

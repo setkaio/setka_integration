@@ -1,0 +1,59 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://editor.setka.io/api/v2/integration?select=plugins,amp&token=UYHtFJUvAs7BOkoZZiVmryaFZltecJGT
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - editor.setka.io
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      X-Download-Options:
+      - noopen
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      X-Ratelimit-Limit:
+      - '5'
+      X-Ratelimit-Remaining:
+      - '4'
+      X-Ratelimit-Reset:
+      - '1'
+      Content-Type:
+      - application/json; charset=utf-8
+      Etag:
+      - W/"656b0cda30db1b4cc4e836e99f16b895"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - b07fcd32-3d95-4f91-931d-8d9c6d342792
+      X-Runtime:
+      - '2.087740'
+      Vary:
+      - Origin
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '{"public_token":"BzQQeLX47g1oUJxLvKewXTMpiWdNCubQ","plugins":[{"url":"https://ceditor.setka.io/public/bf67a91/01/01/public.vbf67a91.1616070657.min.js","md5":"343aa6fafa222601205ea157d12aaa07","filetype":"js"}],"amp_styles":{"common":[{"id":673,"url":"https://ceditor.setka.io/common_css/common_css_1200306575_amp.css","filetype":"css"}],"themes":[{"id":"16965","url":"https://ceditor.setka.io/clients/87da978e8ecbcddfc6a25f7ab7da4439/theme_builds/22987/9VtG1VHjcXe-vtl59iuQrA.css","filetype":"css","fonts":["https://fonts.googleapis.com/css?family=Open+Sans:400\u0026subset=latin\u0026display=swap"]},{"id":"16964","url":"https://ceditor.setka.io/clients/87da978e8ecbcddfc6a25f7ab7da4439/theme_builds/22988/qkdQQGPVSnwny-vrbq0Eog.css","filetype":"css","fonts":["https://fonts.googleapis.com/css?family=Open+Sans:400\u0026subset=latin\u0026display=swap"]},{"id":"16963","url":"https://ceditor.setka.io/clients/87da978e8ecbcddfc6a25f7ab7da4439/theme_builds/22989/H-IpA5BFl7Wp38FOHjad8A.css","filetype":"css","fonts":["https://fonts.googleapis.com/css?family=Open+Sans:400\u0026subset=latin\u0026display=swap"]},{"id":"16962","url":"https://ceditor.setka.io/clients/87da978e8ecbcddfc6a25f7ab7da4439/theme_builds/22990/uc0Oi56i6j1XUO5sOXmSjA.css","filetype":"css","fonts":["https://fonts.googleapis.com/css?family=Open+Sans:400\u0026subset=latin\u0026display=swap"]},{"id":"16961","url":"https://ceditor.setka.io/clients/87da978e8ecbcddfc6a25f7ab7da4439/theme_builds/22991/IImDQYU1pDjldsefrNo5aA.css","filetype":"css","fonts":["https://fonts.googleapis.com/css?family=Open+Sans:400\u0026subset=latin\u0026display=swap"]}],"layouts":[{"id":"4col_4499","url":"https://ceditor.setka.io/clients/87da978e8ecbcddfc6a25f7ab7da4439/layout_option_builds/17393/P13mNyc6BTJA-vGqHXY1rQ.css","filetype":"css"},{"id":"12col_17394","url":"https://ceditor.setka.io/clients/87da978e8ecbcddfc6a25f7ab7da4439/layout_option_builds/17394/wrlVexKvO_z0iVZ5FYuebw.css","filetype":"css"},{"id":"8col_17395","url":"https://ceditor.setka.io/clients/87da978e8ecbcddfc6a25f7ab7da4439/layout_option_builds/17395/V_cYIf8nDROuQSNztGEonQ.css","filetype":"css"},{"id":"6col_17396","url":"https://ceditor.setka.io/clients/87da978e8ecbcddfc6a25f7ab7da4439/layout_option_builds/17396/Z85RvpNmDzo4EIyFbmGMKA.css","filetype":"css"},{"id":"6col_limited_940","url":"https://ceditor.setka.io/clients/87da978e8ecbcddfc6a25f7ab7da4439/layout_option_builds/17397/--JfG-UBXJoVa8IEevknWg.css","filetype":"css"}]}}'
+  recorded_at: Thu, 01 Jul 2021 17:55:20 GMT
+recorded_with: VCR 6.0.0

@@ -1,0 +1,59 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://editor.setka.io/api/v2/integration?select=plugins,invalid_token&token=UYHtFJUvAs7BOkoZZiVmryaFZltecJGT
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - editor.setka.io
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      X-Download-Options:
+      - noopen
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      X-Ratelimit-Limit:
+      - '5'
+      X-Ratelimit-Remaining:
+      - '4'
+      X-Ratelimit-Reset:
+      - '1'
+      Content-Type:
+      - application/json; charset=utf-8
+      Etag:
+      - W/"c0f2d0be7d35bdb6969b9f86aa70fcd3"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - 00ced954-be6e-4339-a8fb-8f48d671f7c5
+      X-Runtime:
+      - '0.331894'
+      Vary:
+      - Origin
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '{"public_token":"BzQQeLX47g1oUJxLvKewXTMpiWdNCubQ","plugins":[{"url":"https://ceditor.setka.io/public/bf67a91/01/01/public.vbf67a91.1616070657.min.js","md5":"343aa6fafa222601205ea157d12aaa07","filetype":"js"}]}'
+  recorded_at: Thu, 01 Jul 2021 19:18:46 GMT
+recorded_with: VCR 6.0.0
