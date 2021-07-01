@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'setka_integration/api/init_sync'
 require 'vcr_setup'
 
-RSpec.describe SetkaIntegration::Api::InitSync, type: :request do
+RSpec.describe SetkaIntegration::Api::InitSync do
   describe '.()' do
     context 'with valid token' do
       let(:params) do
@@ -24,8 +24,8 @@ RSpec.describe SetkaIntegration::Api::InitSync, type: :request do
           end
 
           aggregate_failures 'theme files' do
-            expect(body['editor_files'].find { |file| file['filetype'] == 'css' }['url']).not_to be_empty
-            expect(body['editor_files'].find { |file| file['filetype'] == 'js' }['url']).not_to be_empty
+            expect(body['theme_files'].find { |file| file['filetype'] == 'css' }['url']).not_to be_empty
+            expect(body['theme_files'].find { |file| file['filetype'] == 'json' }['url']).not_to be_empty
           end
 
           aggregate_failures 'standalone files' do
