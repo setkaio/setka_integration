@@ -1,8 +1,8 @@
 require 'spec_helper'
-require 'setka_integration/api/get_files_set'
+require 'setka_integration/api/select_files_sync'
 require 'vcr_setup'
 
-RSpec.describe SetkaIntegration::Api::GetFilesSet do
+RSpec.describe SetkaIntegration::Api::SelectFilesSync do
   describe '.()' do
     context 'with part select set' do
       let(:params) do
@@ -13,7 +13,7 @@ RSpec.describe SetkaIntegration::Api::GetFilesSet do
       end
 
       it 'have Setka editor fields' do
-        VCR.use_cassette 'get_files_set/with_part_options', allow_playback_repeats: true do
+        VCR.use_cassette 'select_files_sync/with_part_options', allow_playback_repeats: true do
           result = described_class.new(params).()
 
           expect(result).to be_success
@@ -39,7 +39,7 @@ RSpec.describe SetkaIntegration::Api::GetFilesSet do
       end
 
       it 'have only plugins fields' do
-        VCR.use_cassette 'get_files_set/with_invalid_select_set', allow_playback_repeats: true do
+        VCR.use_cassette 'select_files_sync/with_invalid_select_set', allow_playback_repeats: true do
           result = described_class.new(params).()
 
           expect(result.body.keys).to eq(%w(public_token plugins))
@@ -57,7 +57,7 @@ RSpec.describe SetkaIntegration::Api::GetFilesSet do
       end
 
       it 'have only plugins fields' do
-        VCR.use_cassette 'get_files_set/without_select_set', allow_playback_repeats: true do
+        VCR.use_cassette 'select_files_sync/without_select_set', allow_playback_repeats: true do
           result = described_class.new(params).()
 
           expect(result).to be_success
