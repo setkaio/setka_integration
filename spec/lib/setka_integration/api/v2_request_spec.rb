@@ -20,11 +20,11 @@ RSpec.describe SetkaIntegration::Api::V2Request do
         { param1: 'value1', params2: 'value2' }
       end
 
-      it { expect(described_class.(params).body).to eq response.body }
+      it { expect(described_class.(params).body).to eq JSON.parse(response.body) }
     end
 
     context 'without params' do
-      it { expect(described_class.()).to eq response }
+      it { expect(described_class.().body).to eq JSON.parse(response.body) }
     end
   end
 end

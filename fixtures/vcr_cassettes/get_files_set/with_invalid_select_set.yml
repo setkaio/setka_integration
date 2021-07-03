@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://editor.setka.io/api/v2/integration?select=plugins,invalid_token&token=UYHtFJUvAs7BOkoZZiVmryaFZltecJGT
+    uri: https://editor.setka.io/api/v2/integration?select=plugins,invalid_select&token=UYHtFJUvAs7BOkoZZiVmryaFZltecJGT
     body:
       encoding: US-ASCII
       string: ''

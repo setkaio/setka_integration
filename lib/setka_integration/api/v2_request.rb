@@ -13,13 +13,22 @@ module SetkaIntegration
         uri = URI(endpoint)
         uri.query = URI.encode_www_form(request_params) unless allowed_params.empty?
 
-        Net::HTTP.get_response(uri)
+        @response = Net::HTTP.get_response(uri)
+        self
       end
 
       class << self
         def call(*args)
-          new(args).()
+          new(*args).()
         end
+      end
+
+      def success?
+        response.code == '200'
+      end
+
+      def body
+        JSON.parse(response.body)
       end
 
       private
@@ -36,7 +45,7 @@ module SetkaIntegration
         params.slice(*allowed_params)
       end
 
-      attr_accessor :params
+      attr_reader :params, :response
     end
   end
 end
