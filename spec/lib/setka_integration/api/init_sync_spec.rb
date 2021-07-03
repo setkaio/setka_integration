@@ -15,22 +15,22 @@ RSpec.describe SetkaIntegration::Api::InitSync do
 
           expect(result).to be_success
           expect(result.body['public_token']).not_to be_empty
-          expect(result.body.dig('plugins', 0, 'url')).not_to be_empty
+          expect(result.body['plugins'].all? { |plugin| plugin['url'].is_a?(String) }).to eq true
 
           aggregate_failures 'editor files' do
-            expect(result.body['editor_files'].find { |file| file['filetype'] == 'css' }['url']).not_to be_empty
-            expect(result.body['editor_files'].find { |file| file['filetype'] == 'js' }['url']).not_to be_empty
+            expect(result.body['editor_files'].find { |file| file['filetype'] == 'css' }['url']).to be_kind_of(String)
+            expect(result.body['editor_files'].find { |file| file['filetype'] == 'js' }['url']).to be_kind_of(String)
           end
 
           aggregate_failures 'theme files' do
-            expect(result.body['theme_files'].find { |file| file['filetype'] == 'css' }['url']).not_to be_empty
-            expect(result.body['theme_files'].find { |file| file['filetype'] == 'json' }['url']).not_to be_empty
+            expect(result.body['theme_files'].find { |file| file['filetype'] == 'css' }['url']).to be_kind_of(String)
+            expect(result.body['theme_files'].find { |file| file['filetype'] == 'json' }['url']).to be_kind_of(String)
           end
 
           aggregate_failures 'standalone files' do
-            expect(result.body.dig('standalone_styles', 'common', 0, 'url')).not_to be_empty
-            expect(result.body.dig('standalone_styles', 'themes', 0, 'url')).not_to be_empty
-            expect(result.body.dig('standalone_styles', 'layouts', 0, 'url')).not_to be_empty
+            expect(result.body.dig('standalone_styles', 'common').all? { |common| common['url'].is_a?(String) }).to eq true
+            expect(result.body.dig('standalone_styles', 'themes').all? { |themes| themes['url'].is_a?(String) }).to eq true
+            expect(result.body.dig('standalone_styles', 'layouts').all? { |layouts| layouts['url'].is_a?(String) }).to eq true
           end
         end
       end

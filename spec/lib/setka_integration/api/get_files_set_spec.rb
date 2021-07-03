@@ -22,9 +22,9 @@ RSpec.describe SetkaIntegration::Api::GetFilesSet do
           expect(result.body['plugins'].find { |file| file['filetype'] == 'js' }['url']).not_to be_empty
 
           aggregate_failures 'amp files' do
-            expect(result.body.dig('amp_styles', 'common', 0, 'url')).not_to be_empty
-            expect(result.body.dig('amp_styles', 'themes', 0, 'url')).not_to be_empty
-            expect(result.body.dig('amp_styles', 'layouts', 0, 'url')).not_to be_empty
+            expect(result.body.dig('amp_styles', 'common').all? { |common| common['url'].is_a?(String) }).to eq true
+            expect(result.body.dig('amp_styles', 'themes').all? { |themes| themes['url'].is_a?(String) }).to eq true
+            expect(result.body.dig('amp_styles', 'layouts').all? { |layouts| layouts['url'].is_a?(String) }).to eq true
           end
         end
       end

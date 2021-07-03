@@ -126,13 +126,13 @@ RSpec.describe SetkaIntegration::Resources::GetInitSet do
     context 'with valid token' do
       it 'return standalone styles' do
         VCR.use_cassette 'init_sync/with_valid_token', allow_playback_repeats: true do
-          expect(result.dig('common').any?{ |common| common.is_a?(String)}).to eq true
-          expect(result.dig('themes').any?{ |themes| themes.is_a?(String)}).to eq true
-          expect(result.dig('layouts').any?{ |layouts| layouts.is_a?(String)}).to eq true
-          expect(result.dig('common_critical').any?{ |common_critical| common_critical.is_a?(String)}).to eq true
-          expect(result.dig('common_deferred').any?{ |common_deferred| common_deferred.is_a?(String)}).to eq true
-          expect(result.dig('themes_critical').any?{ |themes_critical| themes_critical.is_a?(String)}).to eq true
-          expect(result.dig('themes_deferred').any?{ |themes_deferred| themes_deferred.is_a?(String)}).to eq true
+          expect(result.dig('common').all? { |common| common.is_a?(String) }).to eq true
+          expect(result.dig('themes').all? { |themes| themes.is_a?(String) }).to eq true
+          expect(result.dig('layouts').all? { |layouts| layouts.is_a?(String) }).to eq true
+          expect(result.dig('common_critical').all? { |common_critical| common_critical.is_a?(String) }).to eq true
+          expect(result.dig('common_deferred').all? { |common_deferred| common_deferred.is_a?(String) }).to eq true
+          expect(result.dig('themes_critical').all? { |themes_critical| themes_critical.is_a?(String) }).to eq true
+          expect(result.dig('themes_deferred').all? { |themes_deferred| themes_deferred.is_a?(String) }).to eq true
         end
       end
     end
