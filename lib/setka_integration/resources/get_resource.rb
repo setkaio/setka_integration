@@ -8,7 +8,7 @@ module SetkaIntegration
       end
 
       def call
-        raise NotImplementedError
+        request.success? ? full_set : error
       end
 
       class << self

@@ -3,7 +3,7 @@ require 'setka_integration/resources/get_resource'
 
 module SetkaIntegration
   module Resources
-    class GetInitSet < GetResource
+    class GetAdvancedSet < GetResource
       def public_token
         response_data do
           request.body['public_token']
@@ -36,6 +36,32 @@ module SetkaIntegration
         end
       end
 
+      def amp_styles
+        if options.include?(:amp)
+          response_data do
+            request.body['amp_styles'].inject({}) do |hash, (key, group)|
+              hash.merge({ key => group.map{ |group_file| group_file['url'] } })
+            end
+          end
+        end
+      end
+
+      def fonts
+        if options.include?(:fonts)
+          response_data do
+            request.body['fonts'].map { |font_file| font_file['url'] }
+          end
+        end
+      end
+
+      def icons
+        if options.include?(:icons)
+          response_data do
+            request.body['icons'].map { |icon_file| icon_file['url'] }
+          end
+        end
+      end
+
       private
 
       def full_set
@@ -44,18 +70,27 @@ module SetkaIntegration
           plugins: plugins,
           editor_files: editor_files,
           theme_files: theme_files,
-          standalone_styles: standalone_styles
-        }
+          standalone_styles: standalone_styles,
+          amp_styles: amp_styles,
+          fonts: fonts,
+          icons: icons
+        }.compact
       end
 
       def request
-        @request ||= SetkaIntegration::Api::InitSync.(params)
+        @request ||= SetkaIntegration::Api::AdvancedSync.(params)
       end
 
       def params
-        { token: config.license_key }
+        {
+          token: config.license_key,
+          options: config.options
+        }
+      end
+
+      def options
+        @options ||= config.options.split(',').map(&:to_sym)
       end
     end
   end
 end
-
