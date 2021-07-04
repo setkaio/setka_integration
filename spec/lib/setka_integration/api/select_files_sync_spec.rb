@@ -13,7 +13,7 @@ RSpec.describe SetkaIntegration::Api::SelectFilesSync do
       end
 
       it 'have Setka editor fields' do
-        VCR.use_cassette 'select_files_sync/with_part_options', allow_playback_repeats: true do
+        VCR.use_cassette 'select_files_sync/with_part_select_set', allow_playback_repeats: true do
           result = described_class.new(params).()
 
           expect(result).to be_success
