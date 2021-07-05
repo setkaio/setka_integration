@@ -1,5 +1,3 @@
-require 'setka_integration/api/v2_request'
-
 module SetkaIntegration
   module Api
     class InitSync < V2Request

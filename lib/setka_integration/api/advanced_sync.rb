@@ -1,5 +1,3 @@
-require 'setka_integration/api/v2_request'
-
 module SetkaIntegration
   module Api
     class AdvancedSync < V2Request

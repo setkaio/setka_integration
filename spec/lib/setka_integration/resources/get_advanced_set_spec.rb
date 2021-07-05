@@ -1,6 +1,5 @@
 require 'spec_helper'
 require 'setka_integration/resources/get_advanced_set'
-require 'vcr_setup'
 
 RSpec.describe SetkaIntegration::Resources::GetAdvancedSet do
   let(:config) { SetkaIntegration::Config.new(license_key, options: options) }

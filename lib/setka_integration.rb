@@ -1,5 +1,13 @@
-require "setka_integration/version"
+require 'uri'
+require 'net/http'
+require 'byebug'
+
+require 'active_support/core_ext/hash'
+
+require 'setka_integration/api/v2_request'
+require 'setka_integration/resources/get_resource'
 require "setka_integration/config"
+require "setka_integration/version"
 
 module SetkaIntegration
   class << self

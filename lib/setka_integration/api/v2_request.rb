@@ -1,7 +1,3 @@
-require 'uri'
-require 'net/http'
-require 'byebug'
-
 module SetkaIntegration
   module Api
     class V2Request

@@ -1,5 +1,3 @@
-require 'active_support/core_ext/hash'
-
 module SetkaIntegration
   class Config
     attr_reader :license_key, :options, :select

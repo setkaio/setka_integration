@@ -1,6 +1,5 @@
 require 'spec_helper'
 require 'setka_integration/api/select_files_sync'
-require 'vcr_setup'
 
 RSpec.describe SetkaIntegration::Api::SelectFilesSync do
   describe '.()' do

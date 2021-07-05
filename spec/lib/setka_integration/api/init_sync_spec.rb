@@ -1,6 +1,5 @@
 require 'spec_helper'
 require 'setka_integration/api/init_sync'
-require 'vcr_setup'
 
 RSpec.describe SetkaIntegration::Api::InitSync do
   describe '.()' do
