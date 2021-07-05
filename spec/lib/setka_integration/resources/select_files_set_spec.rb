@@ -3,7 +3,7 @@ require 'setka_integration/resources/select_files_set'
 require 'vcr_setup'
 
 RSpec.describe SetkaIntegration::Resources::SelectFilesSet do
-  let(:config) { SetkaIntegration::Configuration.new(license_key, select: select) }
+  let(:config) { SetkaIntegration::Config.new(license_key, select: select) }
   let(:license_key) { 'UYHtFJUvAs7BOkoZZiVmryaFZltecJGT' }
   let(:select) { 'plugins,amp' }
 

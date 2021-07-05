@@ -3,7 +3,7 @@ require 'setka_integration/resources/get_advanced_set'
 require 'vcr_setup'
 
 RSpec.describe SetkaIntegration::Resources::GetAdvancedSet do
-  let(:config) { SetkaIntegration::Configuration.new(license_key, options: options) }
+  let(:config) { SetkaIntegration::Config.new(license_key, options: options) }
   let(:license_key) { 'UYHtFJUvAs7BOkoZZiVmryaFZltecJGT' }
   let(:options) { 'amp,icons' }
 

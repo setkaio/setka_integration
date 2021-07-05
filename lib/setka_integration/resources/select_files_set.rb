@@ -1,4 +1,4 @@
-require 'setka_integration/configuration'
+require 'setka_integration/config'
 require 'setka_integration/resources/get_resource'
 
 module SetkaIntegration

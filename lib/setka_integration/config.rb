@@ -1,5 +1,5 @@
 module SetkaIntegration
-  class Configuration
+  class Config
     attr_reader :license_key, :options, :select
 
     def initialize(license_key, options: {}, select: {})
