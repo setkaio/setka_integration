@@ -81,12 +81,12 @@ module SetkaIntegration
       def params
         {
           token: config.license_key,
-          options: config.options
+          options: opts
         }
       end
 
       def options
-        @options ||= config.options.split(',').map(&:to_sym)
+        @options ||= opts.split(',').map(&:to_sym)
       end
     end
   end

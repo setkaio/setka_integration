@@ -1,10 +1,11 @@
 module SetkaIntegration
   module Resources
     class GetResource
-      attr_reader :config
+      attr_reader :config, :opts
 
-      def initialize(config)
+      def initialize(config, opts = '')
         @config = config
+        @opts = opts
       end
 
       def call

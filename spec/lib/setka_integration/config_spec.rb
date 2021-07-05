@@ -3,13 +3,7 @@ require 'setka_integration/config'
 
 RSpec.describe SetkaIntegration::Config do
   describe '#configure' do
-    let(:config) do
-      {
-        license_key: 'license_key',
-        options: 'config_options',
-        select: 'config_select'
-      }
-    end
+    let(:config) { { license_key: 'license_key' } }
 
     subject { described_class.configure(config) }
 

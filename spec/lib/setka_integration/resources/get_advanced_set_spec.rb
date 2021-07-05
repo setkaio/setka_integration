@@ -2,12 +2,12 @@ require 'spec_helper'
 require 'setka_integration/resources/get_advanced_set'
 
 RSpec.describe SetkaIntegration::Resources::GetAdvancedSet do
-  let(:config) { SetkaIntegration::Config.new(license_key, options: options) }
+  let(:config) { SetkaIntegration::Config.new(license_key) }
   let(:license_key) { 'UYHtFJUvAs7BOkoZZiVmryaFZltecJGT' }
   let(:options) { 'amp,icons' }
 
   describe '.()' do
-    subject { described_class.(config) }
+    subject { described_class.(config, options) }
 
     context 'with part options' do
       it 'returns Setka editor files' do
@@ -43,7 +43,7 @@ RSpec.describe SetkaIntegration::Resources::GetAdvancedSet do
   end
 
   describe 'public_token' do
-    subject { described_class.new(config).public_token }
+    subject { described_class.new(config, options).public_token }
 
     context 'with part options' do
       it 'return public token' do
@@ -67,7 +67,7 @@ RSpec.describe SetkaIntegration::Resources::GetAdvancedSet do
   end
 
   describe 'plugins' do
-    subject { described_class.new(config).plugins }
+    subject { described_class.new(config, options).plugins }
 
     context 'with part options' do
       it 'return plugins' do
@@ -91,7 +91,7 @@ RSpec.describe SetkaIntegration::Resources::GetAdvancedSet do
   end
 
   describe 'editor_files' do
-    subject { described_class.new(config).editor_files }
+    subject { described_class.new(config, options).editor_files }
 
     context 'with valid options' do
       it 'return editor files' do
@@ -115,7 +115,7 @@ RSpec.describe SetkaIntegration::Resources::GetAdvancedSet do
   end
 
   describe 'theme_files' do
-    subject { described_class.new(config).theme_files }
+    subject { described_class.new(config, options).theme_files }
 
     context 'with valid options' do
       it 'return theme files' do
@@ -139,7 +139,7 @@ RSpec.describe SetkaIntegration::Resources::GetAdvancedSet do
   end
 
   describe 'standalone_styles' do
-    let(:result) { described_class.new(config).standalone_styles }
+    let(:result) { described_class.new(config, options).standalone_styles }
 
     context 'with valid options' do
       it 'return standalone styles' do
@@ -173,7 +173,7 @@ RSpec.describe SetkaIntegration::Resources::GetAdvancedSet do
   end
 
   describe 'amp_styles' do
-    let(:result) { described_class.new(config).amp_styles }
+    let(:result) { described_class.new(config, options).amp_styles }
 
     context 'with valid options' do
       it 'return amp styles' do
@@ -199,7 +199,7 @@ RSpec.describe SetkaIntegration::Resources::GetAdvancedSet do
   end
 
   describe 'fonts' do
-    subject { described_class.new(config).fonts }
+    subject { described_class.new(config, options).fonts }
 
     context 'with valid options' do
       it 'return nothing' do
@@ -221,7 +221,7 @@ RSpec.describe SetkaIntegration::Resources::GetAdvancedSet do
   end
 
   describe 'icons' do
-    subject { described_class.new(config).icons }
+    subject { described_class.new(config, options).icons }
 
     context 'with valid options' do
       it 'return nothing' do

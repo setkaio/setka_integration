@@ -8,7 +8,7 @@ module SetkaIntegration
       end
 
       def plugins
-        if select.include?(:plugins)
+        if options.include?(:plugins)
           response_data do
             request.body['plugins'].map { |plugin| plugin['url'] }
           end
@@ -16,7 +16,7 @@ module SetkaIntegration
       end
 
       def editor_files
-        if select.include?(:editor)
+        if options.include?(:editor)
           response_data do
             request.body['editor_files'].map { |editor_file| editor_file['url'] }
           end
@@ -24,7 +24,7 @@ module SetkaIntegration
       end
 
       def theme_files
-        if select.include?(:theme)
+        if options.include?(:theme)
           response_data do
             request.body['theme_files'].map { |theme_file| theme_file['url'] }
           end
@@ -32,7 +32,7 @@ module SetkaIntegration
       end
 
       def standalone_styles
-        if select.include?(:standalone)
+        if options.include?(:standalone)
           response_data do
             request.body['standalone_styles'].inject({}) do |hash, (key, group)|
               hash.merge({ key => group.map{ |group_file| group_file['url'] } })
@@ -42,7 +42,7 @@ module SetkaIntegration
       end
 
       def amp_styles
-        if select.include?(:amp)
+        if options.include?(:amp)
           response_data do
             request.body['amp_styles'].inject({}) do |hash, (key, group)|
               hash.merge({ key => group.map{ |group_file| group_file['url'] } })
@@ -52,7 +52,7 @@ module SetkaIntegration
       end
 
       def fonts
-        if select.include?(:fonts)
+        if options.include?(:fonts)
           response_data do
             request.body['fonts'].map { |font_file| font_file['url'] }
           end
@@ -60,7 +60,7 @@ module SetkaIntegration
       end
 
       def icons
-        if select.include?(:icons)
+        if options.include?(:icons)
           response_data do
             request.body['icons'].map { |icon_file| icon_file['url'] }
           end
@@ -89,12 +89,12 @@ module SetkaIntegration
       def params
         {
           token: config.license_key,
-          select: config.select
+          select: opts
         }
       end
 
-      def select
-        @select ||= config.select.split(',').map(&:to_sym)
+      def options
+        @options ||= opts.split(',').map(&:to_sym)
       end
     end
   end

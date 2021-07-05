@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'setka_integration/select'
 
 RSpec.describe SetkaIntegration::Select do
-  subject { described_class.files }
+  subject { described_class.files(select) }
 
   let(:license_key) { 'UYHtFJUvAs7BOkoZZiVmryaFZltecJGT' }
   let(:select) { 'plugins,amp' }

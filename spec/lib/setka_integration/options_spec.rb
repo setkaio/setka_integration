@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'setka_integration/options'
 
 RSpec.describe SetkaIntegration::Options do
-  subject { described_class.files }
+  subject { described_class.files(options) }
 
   let(:license_key) { 'UYHtFJUvAs7BOkoZZiVmryaFZltecJGT' }
   let(:options) { 'amp,icons' }

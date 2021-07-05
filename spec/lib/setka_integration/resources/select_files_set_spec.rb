@@ -2,12 +2,12 @@ require 'spec_helper'
 require 'setka_integration/resources/select_files_set'
 
 RSpec.describe SetkaIntegration::Resources::SelectFilesSet do
-  let(:config) { SetkaIntegration::Config.new(license_key, select: select) }
+  let(:config) { SetkaIntegration::Config.new(license_key) }
   let(:license_key) { 'UYHtFJUvAs7BOkoZZiVmryaFZltecJGT' }
   let(:select) { 'plugins,amp' }
 
   describe '.()' do
-    subject { described_class.(config) }
+    subject { described_class.(config, select) }
 
     context 'with part select set' do
       it 'returns some files' do
@@ -44,7 +44,7 @@ RSpec.describe SetkaIntegration::Resources::SelectFilesSet do
   end
 
   describe 'public_token' do
-    subject { described_class.new(config).public_token }
+    subject { described_class.new(config, select).public_token }
 
     context 'with part select set' do
       it 'return public token' do
@@ -68,7 +68,7 @@ RSpec.describe SetkaIntegration::Resources::SelectFilesSet do
   end
 
   describe 'plugins' do
-    subject { described_class.new(config).plugins }
+    subject { described_class.new(config, select).plugins }
 
     context 'with part select set' do
       it 'return plugins' do
@@ -91,7 +91,7 @@ RSpec.describe SetkaIntegration::Resources::SelectFilesSet do
   end
 
   describe 'editor_files' do
-    subject { described_class.new(config).editor_files }
+    subject { described_class.new(config, select).editor_files }
 
     context 'with valid options' do
       it 'return nothing' do
@@ -113,7 +113,7 @@ RSpec.describe SetkaIntegration::Resources::SelectFilesSet do
   end
 
   describe 'theme_files' do
-    subject { described_class.new(config).theme_files }
+    subject { described_class.new(config, select).theme_files }
 
     context 'with valid options' do
       it 'return nothing' do
@@ -135,7 +135,7 @@ RSpec.describe SetkaIntegration::Resources::SelectFilesSet do
   end
 
   describe 'standalone_styles' do
-    subject { described_class.new(config).standalone_styles }
+    subject { described_class.new(config, select).standalone_styles }
 
     context 'with valid options' do
       it 'return nothing' do
@@ -157,7 +157,7 @@ RSpec.describe SetkaIntegration::Resources::SelectFilesSet do
   end
 
   describe 'amp_styles' do
-    subject { described_class.new(config).amp_styles }
+    subject { described_class.new(config, select).amp_styles }
 
     context 'with valid options' do
       it 'return amp styles' do
@@ -181,7 +181,7 @@ RSpec.describe SetkaIntegration::Resources::SelectFilesSet do
   end
 
   describe 'fonts' do
-    subject { described_class.new(config).fonts }
+    subject { described_class.new(config, select).fonts }
 
     context 'with valid options' do
       it 'return nothing' do
@@ -203,7 +203,7 @@ RSpec.describe SetkaIntegration::Resources::SelectFilesSet do
   end
 
   describe 'icons' do
-    subject { described_class.new(config).icons }
+    subject { described_class.new(config, select).icons }
 
     context 'with valid options' do
       it 'return nothing' do
