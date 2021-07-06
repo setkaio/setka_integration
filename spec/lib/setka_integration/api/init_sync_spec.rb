@@ -2,10 +2,17 @@ require 'spec_helper'
 require 'setka_integration/api/init_sync'
 
 RSpec.describe SetkaIntegration::Api::InitSync do
+  let(:valid_token) { 'UYHtFJUvAs7BOkoZZiVmryaFZltecJGT' }
+  let(:config) { { license_key: valid_token, host: 'https://editor.setka.io' } }
+
+  before do
+    SetkaIntegration.configure(config)
+  end
+
   describe '.()' do
     context 'with valid token' do
       let(:params) do
-        { token: 'UYHtFJUvAs7BOkoZZiVmryaFZltecJGT' }
+        { token: valid_token }
       end
 
       it 'have Setka editor fields' do

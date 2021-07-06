@@ -30,7 +30,7 @@ module SetkaIntegration
       private
 
       def endpoint
-        'https://editor.setka.io/api/v2/integration'
+        "#{host}/api/v2/integration"
       end
 
       def allowed_params
@@ -39,6 +39,10 @@ module SetkaIntegration
 
       def request_params
         params.slice(*allowed_params)
+      end
+
+      def host
+        SetkaIntegration::Config.host
       end
 
       attr_reader :params, :response

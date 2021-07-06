@@ -2,11 +2,18 @@ require 'spec_helper'
 require 'setka_integration/api/advanced_sync'
 
 RSpec.describe SetkaIntegration::Api::AdvancedSync do
+  let(:valid_token) { 'UYHtFJUvAs7BOkoZZiVmryaFZltecJGT' }
+  let(:config) { { license_key: valid_token, host: 'https://editor.setka.io' } }
+
+  before do
+    SetkaIntegration.configure(config)
+  end
+
   describe '.()' do
     context 'with part options' do
       let(:params) do
         {
-          token: 'UYHtFJUvAs7BOkoZZiVmryaFZltecJGT',
+          token: valid_token,
           options: 'amp,icons'
         }
       end
@@ -55,7 +62,7 @@ RSpec.describe SetkaIntegration::Api::AdvancedSync do
     context 'with invalid options' do
       let(:params) do
         {
-          token: 'UYHtFJUvAs7BOkoZZiVmryaFZltecJGT',
+          token: valid_token,
           options: 'amp,invalid_option'
         }
       end
@@ -81,7 +88,7 @@ RSpec.describe SetkaIntegration::Api::AdvancedSync do
     context 'without options' do
       let(:params) do
         {
-          token: 'UYHtFJUvAs7BOkoZZiVmryaFZltecJGT'
+          token: valid_token
         }
       end
 

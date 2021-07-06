@@ -2,11 +2,18 @@ require 'spec_helper'
 require 'setka_integration/api/select_files_sync'
 
 RSpec.describe SetkaIntegration::Api::SelectFilesSync do
+  let(:valid_token) { 'UYHtFJUvAs7BOkoZZiVmryaFZltecJGT' }
+  let(:config) { { license_key: valid_token, host: 'https://editor.setka.io' } }
+
+  before do
+    SetkaIntegration.configure(config)
+  end
+
   describe '.()' do
     context 'with part select set' do
       let(:params) do
         {
-          token: 'UYHtFJUvAs7BOkoZZiVmryaFZltecJGT',
+          token: valid_token,
           select: 'plugins,amp'
         }
       end
@@ -32,7 +39,7 @@ RSpec.describe SetkaIntegration::Api::SelectFilesSync do
     context 'with invalid select set' do
       let(:params) do
         {
-          token: 'UYHtFJUvAs7BOkoZZiVmryaFZltecJGT',
+          token: valid_token,
           select: 'plugins,invalid_select'
         }
       end
@@ -50,7 +57,7 @@ RSpec.describe SetkaIntegration::Api::SelectFilesSync do
     context 'without select set' do
       let(:params) do
         {
-          token: 'UYHtFJUvAs7BOkoZZiVmryaFZltecJGT',
+          token: valid_token,
           select: 'invalid_select'
         }
       end
