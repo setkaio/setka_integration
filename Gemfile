@@ -9,4 +9,5 @@ group :development, :test do
   gem 'vcr'
   gem 'webmock'
   gem 'pry-byebug'
+  gem 'bundler-audit'
 end
