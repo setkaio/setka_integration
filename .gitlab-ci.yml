@@ -1,0 +1,14 @@
+stages:
+  - test
+
+rspec:
+  stage: test
+  tags:
+    - editor-runner
+  script:
+    - time bundle exec rspec -O .rspec-ci
+  artifacts:
+    expire_in: 1 week
+    name: "${CI_PROJECT_NAME}-coverage"
+    paths:
+      - coverage/
