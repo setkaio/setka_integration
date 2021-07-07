@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     setka_integration (0.1.0)
+      activesupport (~> 6.0)
 
 GEM
   remote: https://rubygems.org/
@@ -60,7 +61,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activesupport (~> 6.0)
   bundler (~> 2.1.4)
   pry-byebug
   rake (~> 10.0)
