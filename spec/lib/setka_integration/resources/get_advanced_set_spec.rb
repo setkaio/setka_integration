@@ -2,9 +2,15 @@ require 'spec_helper'
 require 'setka_integration/resources/get_advanced_set'
 
 RSpec.describe SetkaIntegration::Resources::GetAdvancedSet do
-  let(:config) { SetkaIntegration::Config.new(license_key) }
+  let(:config) { SetkaIntegration::Config }
   let(:license_key) { 'UYHtFJUvAs7BOkoZZiVmryaFZltecJGT' }
   let(:options) { 'amp,icons' }
+
+  before do
+    SetkaIntegration::Config.configure(
+      license_key: license_key
+    )
+  end
 
   describe '.()' do
     subject { described_class.(config, options) }
