@@ -9,7 +9,7 @@ Documentation for the Setka Editor API: https://setka.gitbook.io/help-center/api
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'setka_integration'
+gem 'setka_integration', git: 'https://github.com/setkaio/setka_integration'
 ```
 
 And then execute:
