@@ -19,6 +19,7 @@ require "setka_integration/init"
 require "setka_integration/options"
 require "setka_integration/select"
 
+require "setka_integration/error"
 require "setka_integration/version"
 
 module SetkaIntegration

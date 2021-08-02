@@ -27,7 +27,7 @@ RSpec.describe SetkaIntegration::Resources::GetInitSet do
 
       it 'return error' do
         VCR.use_cassette 'init_sync/with_invalid_token', allow_playback_repeats: true do
-          is_expected.to eq 'Not authorized!'
+          expect { subject }.to raise_error(SetkaIntegration::Error, 'Not authorized!')
         end
       end
     end
@@ -50,7 +50,7 @@ RSpec.describe SetkaIntegration::Resources::GetInitSet do
 
       it 'return error' do
         VCR.use_cassette 'init_sync/with_invalid_token', allow_playback_repeats: true do
-          is_expected.to eq 'Not authorized!'
+          expect { subject }.to raise_error(SetkaIntegration::Error, 'Not authorized!')
         end
       end
     end
@@ -73,7 +73,7 @@ RSpec.describe SetkaIntegration::Resources::GetInitSet do
 
       it 'return error' do
         VCR.use_cassette 'init_sync/with_invalid_token', allow_playback_repeats: true do
-          is_expected.to eq 'Not authorized!'
+          expect { subject }.to raise_error(SetkaIntegration::Error, 'Not authorized!')
         end
       end
     end
@@ -96,7 +96,7 @@ RSpec.describe SetkaIntegration::Resources::GetInitSet do
 
       it 'return error' do
         VCR.use_cassette 'init_sync/with_invalid_token', allow_playback_repeats: true do
-          is_expected.to eq 'Not authorized!'
+          expect { subject }.to raise_error(SetkaIntegration::Error, 'Not authorized!')
         end
       end
     end
@@ -119,7 +119,7 @@ RSpec.describe SetkaIntegration::Resources::GetInitSet do
 
       it 'return error' do
         VCR.use_cassette 'init_sync/with_invalid_token', allow_playback_repeats: true do
-          is_expected.to eq 'Not authorized!'
+          expect { subject }.to raise_error(SetkaIntegration::Error, 'Not authorized!')
         end
       end
     end
@@ -147,7 +147,7 @@ RSpec.describe SetkaIntegration::Resources::GetInitSet do
 
       it 'return error' do
         VCR.use_cassette 'init_sync/with_invalid_token', allow_playback_repeats: true do
-          expect(result).to eq 'Not authorized!'
+          expect { result }.to raise_error(SetkaIntegration::Error, 'Not authorized!')
         end
       end
     end

@@ -9,26 +9,26 @@ module SetkaIntegration
 
       def plugins
         response_data do
-          request.body['plugins'].map { |plugin| plugin['url'] }
+          request.body['plugins']&.map { |plugin| plugin['url'] }
         end
       end
 
       def editor_files
         response_data do
-          request.body['editor_files'].map { |editor_file| editor_file['url'] }
+          request.body['editor_files']&.map { |editor_file| editor_file['url'] }
         end
       end
 
       def theme_files
         response_data do
-          request.body['theme_files'].map { |theme_file| theme_file['url'] }
+          request.body['theme_files']&.map { |theme_file| theme_file['url'] }
         end
       end
 
       def standalone_styles
         response_data do
-          request.body['standalone_styles'].inject({}) do |hash, (key, group)|
-            hash.merge({ key => group.map{ |group_file| group_file['url'] } })
+          request.body['standalone_styles']&.inject({}) do |hash, (key, group)|
+            hash.merge({ key => group.map { |group_file| group_file['url'] } })
           end
         end
       end

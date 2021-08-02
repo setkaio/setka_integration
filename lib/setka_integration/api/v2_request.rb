@@ -20,7 +20,11 @@ module SetkaIntegration
       end
 
       def success?
-        response.code == '200'
+        response.code.to_i == 200
+      end
+
+      def non_authorized?
+        response.code.to_i == 301
       end
 
       def body

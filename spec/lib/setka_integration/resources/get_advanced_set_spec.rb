@@ -42,7 +42,7 @@ RSpec.describe SetkaIntegration::Resources::GetAdvancedSet do
 
       it 'return error' do
         VCR.use_cassette 'advanced_sync/with_invalid_token', allow_playback_repeats: true do
-          is_expected.to eq 'Not authorized!'
+          expect { subject }.to raise_error(SetkaIntegration::Error, 'Not authorized!')
         end
       end
     end

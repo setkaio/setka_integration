@@ -41,7 +41,7 @@ RSpec.describe SetkaIntegration::Select do
   describe 'option methods' do
     let(:response) do
       double({
-        code: 200,
+        code: '200',
         body: { key1: 'value1', key2: 'value2' }.to_json
       })
     end
@@ -57,55 +57,55 @@ RSpec.describe SetkaIntegration::Select do
     describe '#all' do
       let(:opts) { 'plugins,editor,theme,standalone,amp,fonts,icons' }
 
-      it { described_class.all }
+      it { expect { described_class.all }.not_to raise_error }
     end
 
     describe '#public_token' do
       let(:opts) { '' }
 
-      it { described_class.public_token }
+      it { expect { described_class.public_token }.not_to raise_error }
     end
 
     describe '#plugins' do
       let(:opts) { 'plugins' }
 
-      it { described_class.plugins }
+      it { expect { described_class.plugins }.not_to raise_error }
     end
 
     describe '#editor_files' do
       let(:opts) { 'editor' }
 
-      it { described_class.editor_files }
+      it { expect { described_class.editor_files }.not_to raise_error }
     end
 
     describe '#theme_files' do
       let(:opts) { 'theme' }
 
-      it { described_class.theme_files }
+      it { expect { described_class.theme_files }.not_to raise_error }
     end
 
     describe '#standalone_styles' do
       let(:opts) { 'standalone' }
 
-      it { described_class.standalone_styles }
+      it { expect { described_class.standalone_styles }.not_to raise_error }
     end
 
     describe '#amp_styles' do
       let(:opts) { 'amp' }
 
-      it { described_class.amp_styles }
+      it { expect { described_class.amp_styles }.not_to raise_error }
     end
 
     describe '#fonts' do
       let(:opts) { 'fonts' }
 
-      it { described_class.fonts }
+      it { expect { described_class.fonts }.not_to raise_error }
     end
 
     describe '#icons' do
       let(:opts) { 'icons' }
 
-      it { described_class.icons }
+      it { expect { described_class.icons }.not_to raise_error }
     end
   end
 end

@@ -21,7 +21,7 @@ module SetkaIntegration
       private
 
       def error
-        request.body['error']
+        raise ::SetkaIntegration::Error, request.body['error']
       end
 
       def request
