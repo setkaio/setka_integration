@@ -17,9 +17,10 @@ RSpec.describe SetkaIntegration::Options do
     context 'with valid token' do
       it 'returns Setka editor files' do
         VCR.use_cassette 'advanced_sync/with_part_options', allow_playback_repeats: true do
-          expect(subject[:public_token]).not_to be_empty
-          expect(%i(plugins editor_files theme_files standalone_styles amp_styles icons).all? { |key| !subject[key].compact.empty? })
-          expect(%i(fonts).all? { |key| subject[key].nil? }).to eq true
+          expect(subject[:public_token]).to be_present
+          expect(%i(plugins editor_files theme_files standalone_styles amp_styles).all? { |key| subject[key].compact.present? }).to eq true
+          expect(subject[:icons]).to be_empty
+          expect(subject[:fonts]).to be_nil
         end
       end
     end
@@ -29,8 +30,8 @@ RSpec.describe SetkaIntegration::Options do
 
       it 'return error' do
         VCR.use_cassette 'advanced_sync/with_invalid_options', allow_playback_repeats: true do
-          expect(subject[:public_token]).not_to be_empty
-          expect(%i(plugins editor_files theme_files standalone_styles amp_styles).all? { |key| !subject[key].compact.empty? })
+          expect(subject[:public_token]).to be_present
+          expect(%i(plugins editor_files theme_files standalone_styles amp_styles).all? { |key| subject[key].compact.present? }).to eq true
           expect(%i(icons fonts).all? { |key| subject[key].nil? }).to eq true
         end
       end

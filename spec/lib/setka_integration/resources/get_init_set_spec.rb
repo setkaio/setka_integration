@@ -17,7 +17,9 @@ RSpec.describe SetkaIntegration::Resources::GetInitSet do
     context 'with valid token' do
       it 'returns Setka editor files' do
         VCR.use_cassette 'init_sync/with_valid_token', allow_playback_repeats: true do
-          expect(%i(public_token plugins editor_files theme_files standalone_styles).all? { |key| subject[key].is_a?(String) })
+          expect(subject[:public_token]).to be_kind_of String
+          expect(subject[:standalone_styles]).to be_kind_of Hash
+          expect(%i(plugins editor_files theme_files).all? { |key| subject[key].is_a?(Array) }).to eq true
         end
       end
     end
