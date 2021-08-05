@@ -35,14 +35,8 @@ module SetkaIntegration
 
       private
 
-      def full_set
-        {
-          public_token: public_token,
-          plugins: plugins,
-          editor_files: editor_files,
-          theme_files: theme_files,
-          standalone_styles: standalone_styles
-        }
+      def hash_keys
+        %i(public_token plugins editor_files theme_files standalone_styles)
       end
 
       def request

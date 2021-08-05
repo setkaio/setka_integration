@@ -20,6 +20,20 @@ module SetkaIntegration
 
       private
 
+      def struct
+        Struct.new(*hash_keys)
+      end
+
+      def hash_data
+        hash_keys.inject({}) do |hash, key|
+          hash.merge({ key => public_send(key) })
+        end
+      end
+
+      def full_set
+        struct.new(*hash_data.values)
+      end
+
       def error
         raise ::SetkaIntegration::Error, request.body['error']
       end

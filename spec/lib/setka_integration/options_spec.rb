@@ -47,4 +47,43 @@ RSpec.describe SetkaIntegration::Options do
       end
     end
   end
+
+  describe '#public_token' do
+    subject { described_class }
+
+    context 'with valid token' do
+      it 'returns Setka editor public token' do
+        VCR.use_cassette 'advanced_sync/with_public_token_options', allow_playback_repeats: true do
+          expect(subject.public_token).to be_present
+          expect(subject.public_token).to be_kind_of(String)
+        end
+      end
+    end
+  end
+
+  describe '#amp_styles' do
+    subject { described_class }
+
+    context 'with valid token' do
+      it 'returns Setka editor amp styles' do
+        VCR.use_cassette 'advanced_sync/with_amp_options', allow_playback_repeats: true do
+          expect(subject.amp_styles).to be_present
+          expect(subject.amp_styles).to be_kind_of Hash
+        end
+      end
+    end
+  end
+
+  describe '#icons' do
+    subject { described_class }
+
+    context 'with valid token' do
+      it 'returns Setka editor icons' do
+        VCR.use_cassette 'advanced_sync/with_icons_options', allow_playback_repeats: true do
+          expect(subject.icons).to be_empty
+          expect(subject.icons).to be_kind_of Array
+        end
+      end
+    end
+  end
 end
