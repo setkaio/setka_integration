@@ -18,8 +18,13 @@ RSpec.describe SetkaIntegration::Resources::GetAdvancedSet do
     context 'with part options' do
       it 'returns Setka editor files' do
         VCR.use_cassette 'advanced_sync/with_part_options', allow_playback_repeats: true do
-          expect(subject[:public_token]).to be_present
-          expect(%i(plugins editor_files theme_files standalone_styles amp_styles).all? { |key| subject[key].compact.present? }).to eq true
+          expect(%i(common common_critical common_deferred).all? { |key| subject[:standalone_styles][key].is_a?(String) }).to eq true
+          expect(subject[:amp_styles][:common]).to be_kind_of String
+          expect(%i(themes layouts).all? { |key| subject[:amp_styles][key].is_a?(Array) }).to eq true
+          expect(%i(themes layouts themes_critical themes_deferred).all? { |key| subject[:standalone_styles][key].is_a?(Array) }).to eq true
+          expect(%i(public_token plugins).all? { |key| subject[key].is_a?(String) }).to eq true
+          expect(%i(css js).all? { |filetype| subject[:editor_files][filetype].is_a?(String) }).to eq true
+          expect(%i(css json).all? { |filetype| subject[:theme_files][filetype].is_a?(String) }).to eq true
           expect(subject[:icons]).to be_empty
           expect(subject[:fonts]).to be_nil
         end
@@ -29,10 +34,14 @@ RSpec.describe SetkaIntegration::Resources::GetAdvancedSet do
     context 'with invalid options' do
       let(:options) { 'amp,invalid_option' }
 
-      it 'return error' do
+      it 'return Setka editor files' do
         VCR.use_cassette 'advanced_sync/with_invalid_options', allow_playback_repeats: true do
-          expect(subject[:public_token]).to be_present
-          expect(%i(plugins editor_files theme_files standalone_styles amp_styles).all? { |key| subject[key].compact.present? }).to eq true
+          expect(%i(public_token plugins).all? { |key| subject[key].is_a?(String) }).to eq true
+          expect(%i(themes layouts themes_critical themes_deferred).all? { |key| subject[:standalone_styles][key].is_a?(Array) }).to eq true
+          expect(subject[:amp_styles][:common]).to be_kind_of String
+          expect(%i(themes layouts).all? { |key| subject[:amp_styles][key].is_a?(Array) }).to eq true
+          expect(%i(css js).all? { |filetype| subject[:editor_files][filetype].is_a?(String) }).to eq true
+          expect(%i(css json).all? { |filetype| subject[:theme_files][filetype].is_a?(String) }).to eq true
           expect(%i(icons fonts).all? { |key| subject[key].nil? }).to eq true
         end
       end
@@ -79,7 +88,7 @@ RSpec.describe SetkaIntegration::Resources::GetAdvancedSet do
     context 'with part options' do
       it 'return plugins' do
         VCR.use_cassette 'advanced_sync/with_part_options', allow_playback_repeats: true do
-          is_expected.to be_kind_of Array
+          is_expected.to be_kind_of String
           is_expected.not_to be_empty
         end
       end
@@ -90,7 +99,7 @@ RSpec.describe SetkaIntegration::Resources::GetAdvancedSet do
 
       it 'return plugins' do
         VCR.use_cassette 'advanced_sync/with_invalid_options', allow_playback_repeats: true do
-          is_expected.to be_kind_of Array
+          is_expected.to be_kind_of String
           is_expected.not_to be_empty
         end
       end
@@ -103,8 +112,7 @@ RSpec.describe SetkaIntegration::Resources::GetAdvancedSet do
     context 'with valid options' do
       it 'return editor files' do
         VCR.use_cassette 'advanced_sync/with_part_options', allow_playback_repeats: true do
-          is_expected.to be_kind_of Array
-          is_expected.not_to be_empty
+          expect(%i(css js).all? { |filetype| subject[filetype].is_a?(String) }).to eq true
         end
       end
     end
@@ -112,10 +120,9 @@ RSpec.describe SetkaIntegration::Resources::GetAdvancedSet do
     context 'with invalid options' do
       let(:options) { 'amp,invalid_option' }
 
-      it 'return error' do
+      it 'return editor files' do
         VCR.use_cassette 'advanced_sync/with_invalid_options', allow_playback_repeats: true do
-          is_expected.to be_kind_of Array
-          is_expected.not_to be_empty
+          expect(%i(css js).all? { |filetype| subject[filetype].is_a?(String) }).to eq true
         end
       end
     end
@@ -127,8 +134,7 @@ RSpec.describe SetkaIntegration::Resources::GetAdvancedSet do
     context 'with valid options' do
       it 'return theme files' do
         VCR.use_cassette 'advanced_sync/with_part_options', allow_playback_repeats: true do
-          is_expected.to be_kind_of Array
-          is_expected.not_to be_empty
+          expect(%i(css json).all? { |filetype| subject.public_send(filetype).is_a?(String) }).to eq true
         end
       end
     end
@@ -136,10 +142,9 @@ RSpec.describe SetkaIntegration::Resources::GetAdvancedSet do
     context 'with invalid options' do
       let(:options) { 'amp,invalid_option' }
 
-      it 'return error' do
+      it 'return theme files' do
         VCR.use_cassette 'advanced_sync/with_invalid_options', allow_playback_repeats: true do
-          is_expected.to be_kind_of Array
-          is_expected.not_to be_empty
+          expect(%i(css json).all? { |filetype| subject.public_send(filetype).is_a?(String) }).to eq true
         end
       end
     end
@@ -151,13 +156,13 @@ RSpec.describe SetkaIntegration::Resources::GetAdvancedSet do
     context 'with valid options' do
       it 'return standalone styles' do
         VCR.use_cassette 'advanced_sync/with_part_options', allow_playback_repeats: true do
-          expect(result.dig('common').all? { |common| common.is_a?(String) }).to eq true
-          expect(result.dig('themes').all? { |themes| themes.is_a?(String) }).to eq true
-          expect(result.dig('layouts').all? { |layouts| layouts.is_a?(String) }).to eq true
-          expect(result.dig('common_critical').all? { |common_critical| common_critical.is_a?(String) }).to eq true
-          expect(result.dig('common_deferred').all? { |common_deferred| common_deferred.is_a?(String) }).to eq true
-          expect(result.dig('themes_critical').all? { |themes_critical| themes_critical.is_a?(String) }).to eq true
-          expect(result.dig('themes_deferred').all? { |themes_deferred| themes_deferred.is_a?(String) }).to eq true
+          expect(result['common']).to be_kind_of String
+          expect(result['themes'].all? { |themes| themes.is_a?(String) }).to eq true
+          expect(result['layouts'].all? { |layouts| layouts.is_a?(String) }).to eq true
+          expect(result['common_critical']).to be_kind_of String
+          expect(result['common_deferred']).to be_kind_of String
+          expect(result['themes_critical'].all? { |themes_critical| themes_critical.is_a?(String) }).to eq true
+          expect(result['themes_deferred'].all? { |themes_deferred| themes_deferred.is_a?(String) }).to eq true
         end
       end
     end
@@ -165,15 +170,15 @@ RSpec.describe SetkaIntegration::Resources::GetAdvancedSet do
     context 'with invalid options' do
       let(:options) { 'amp,invalid_option' }
 
-      it 'return error' do
+      it 'return standalone styles' do
         VCR.use_cassette 'advanced_sync/with_invalid_options', allow_playback_repeats: true do
-          expect(result.dig('common').all? { |common| common.is_a?(String) }).to eq true
-          expect(result.dig('themes').all? { |themes| themes.is_a?(String) }).to eq true
-          expect(result.dig('layouts').all? { |layouts| layouts.is_a?(String) }).to eq true
-          expect(result.dig('common_critical').all? { |common_critical| common_critical.is_a?(String) }).to eq true
-          expect(result.dig('common_deferred').all? { |common_deferred| common_deferred.is_a?(String) }).to eq true
-          expect(result.dig('themes_critical').all? { |themes_critical| themes_critical.is_a?(String) }).to eq true
-          expect(result.dig('themes_deferred').all? { |themes_deferred| themes_deferred.is_a?(String) }).to eq true
+          expect(result['common']).to be_kind_of String
+          expect(result['themes'].all? { |themes| themes.is_a?(String) }).to eq true
+          expect(result['layouts'].all? { |layouts| layouts.is_a?(String) }).to eq true
+          expect(result['common_critical']).to be_kind_of String
+          expect(result['common_deferred']).to be_kind_of String
+          expect(result['themes_critical'].all? { |themes_critical| themes_critical.is_a?(String) }).to eq true
+          expect(result['themes_deferred'].all? { |themes_deferred| themes_deferred.is_a?(String) }).to eq true
         end
       end
     end
@@ -185,9 +190,9 @@ RSpec.describe SetkaIntegration::Resources::GetAdvancedSet do
     context 'with valid options' do
       it 'return amp styles' do
         VCR.use_cassette 'advanced_sync/with_part_options', allow_playback_repeats: true do
-          expect(result.dig('common').all? { |common| common.is_a?(String) }).to eq true
-          expect(result.dig('themes').all? { |themes| themes.is_a?(String) }).to eq true
-          expect(result.dig('layouts').all? { |layouts| layouts.is_a?(String) }).to eq true
+          expect(result['common']).to be_kind_of String
+          expect(result['themes'].all? { |themes| themes.is_a?(String) }).to eq true
+          expect(result['layouts'].all? { |layouts| layouts.is_a?(String) }).to eq true
         end
       end
     end
@@ -197,9 +202,9 @@ RSpec.describe SetkaIntegration::Resources::GetAdvancedSet do
 
       it 'return amp styles' do
         VCR.use_cassette 'advanced_sync/with_invalid_options', allow_playback_repeats: true do
-          expect(result.dig('common').all? { |common| common.is_a?(String) }).to eq true
-          expect(result.dig('themes').all? { |themes| themes.is_a?(String) }).to eq true
-          expect(result.dig('layouts').all? { |layouts| layouts.is_a?(String) }).to eq true
+          expect(result['common']).to be_kind_of String
+          expect(result['themes'].all? { |themes| themes.is_a?(String) }).to eq true
+          expect(result['layouts'].all? { |layouts| layouts.is_a?(String) }).to eq true
         end
       end
     end

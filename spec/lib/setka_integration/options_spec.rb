@@ -17,8 +17,13 @@ RSpec.describe SetkaIntegration::Options do
     context 'with valid token' do
       it 'returns Setka editor files' do
         VCR.use_cassette 'advanced_sync/with_part_options', allow_playback_repeats: true do
-          expect(subject[:public_token]).to be_present
-          expect(%i(plugins editor_files theme_files standalone_styles amp_styles).all? { |key| subject[key].compact.present? }).to eq true
+          expect(%i(public_token plugins).all? { |key| subject[key].is_a?(String) }).to eq true
+          expect(%i(common common_critical common_deferred).all? { |key| subject[:standalone_styles][key].is_a?(String) }).to eq true
+          expect(%i(themes layouts themes_critical themes_deferred).all? { |key| subject[:standalone_styles][key].is_a?(Array) }).to eq true
+          expect(subject[:amp_styles][:common]).to be_kind_of String
+          expect(%i(themes layouts).all? { |key| subject[:amp_styles][key].is_a?(Array) }).to eq true
+          expect(%i(css js).all? { |filetype| subject[:editor_files][filetype].is_a?(String) }).to eq true
+          expect(%i(css json).all? { |filetype| subject[:theme_files][filetype].is_a?(String) }).to eq true
           expect(subject[:icons]).to be_empty
           expect(subject[:fonts]).to be_nil
         end
@@ -28,10 +33,15 @@ RSpec.describe SetkaIntegration::Options do
     context 'with invalid options' do
       let(:opts) { 'amp,invalid_option' }
 
-      it 'return error' do
+      it 'return Setka editor files' do
         VCR.use_cassette 'advanced_sync/with_invalid_options', allow_playback_repeats: true do
-          expect(subject[:public_token]).to be_present
-          expect(%i(plugins editor_files theme_files standalone_styles amp_styles).all? { |key| subject[key].compact.present? }).to eq true
+          expect(%i(public_token plugins).all? { |key| subject[key].is_a?(String) }).to eq true
+          expect(%i(common common_critical common_deferred).all? { |key| subject.public_send(:standalone_styles)[key].is_a?(String) }).to eq true
+          expect(%i(themes layouts themes_critical themes_deferred).all? { |key| subject.public_send(:standalone_styles)[key].is_a?(Array) }).to eq true
+          expect(subject[:amp_styles][:common]).to be_kind_of String
+          expect(%i(themes layouts).all? { |key| subject[:amp_styles][key].is_a?(Array) }).to eq true
+          expect(%i(css js).all? { |filetype| subject[:editor_files][filetype].is_a?(String) }).to eq true
+          expect(%i(css json).all? { |filetype| subject[:theme_files][filetype].is_a?(String) }).to eq true
           expect(%i(icons fonts).all? { |key| subject[key].nil? }).to eq true
         end
       end
@@ -67,8 +77,8 @@ RSpec.describe SetkaIntegration::Options do
     context 'with valid token' do
       it 'returns Setka editor amp styles' do
         VCR.use_cassette 'advanced_sync/with_amp_options', allow_playback_repeats: true do
-          expect(subject.amp_styles).to be_present
-          expect(subject.amp_styles).to be_kind_of Hash
+          expect(%i(common common_critical common_deferred).all? { |key| subject.public_send(:amp_styles)[key].is_a?(String) }).to eq true
+          expect(%i(themes layouts themes_critical themes_deferred).all? { |key| subject.public_send(:amp_styles)[key].is_a?(Array) }).to eq true
         end
       end
     end
