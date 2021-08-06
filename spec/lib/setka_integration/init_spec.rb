@@ -16,9 +16,11 @@ RSpec.describe SetkaIntegration::Init do
 
       it 'returns Setka editor files' do
         VCR.use_cassette 'init_sync/with_valid_token', allow_playback_repeats: true do
-          expect(subject[:public_token]).to be_present
-          expect(subject[:standalone_styles]).to be_kind_of Hash
-          expect(%i(plugins editor_files theme_files).all? { |key| subject[key].is_a?(Array) }).to eq true
+          expect(%i(common common_critical common_deferred).all? { |key| subject[:standalone_styles][key].is_a?(String) }).to eq true
+          expect(%i(themes layouts themes_critical themes_deferred).all? { |key| subject[:standalone_styles][key].is_a?(Array) }).to eq true
+          expect(%i(public_token plugins).all? { |key| subject[key].is_a?(String) }).to eq true
+          expect(%i(css js).all? { |filetype| subject[:editor_files][filetype].is_a?(String) }).to eq true
+          expect(%i(css json).all? { |filetype| subject[:theme_files][filetype].is_a?(String) }).to eq true
         end
       end
     end
@@ -42,9 +44,11 @@ RSpec.describe SetkaIntegration::Init do
 
       it 'returns Setka editor files' do
         VCR.use_cassette 'init_sync/with_valid_token', allow_playback_repeats: true do
-          expect(subject.public_token).to be_present
-          expect(subject.standalone_styles).to be_kind_of Hash
-          expect(%i(plugins editor_files theme_files).all? { |key| subject.public_send(key).is_a?(Array) }).to eq true
+          expect(%i(common common_critical common_deferred).all? { |key| subject.public_send(:standalone_styles)[key].is_a?(String) }).to eq true
+          expect(%i(themes layouts themes_critical themes_deferred).all? { |key| subject.public_send(:standalone_styles)[key].is_a?(Array) }).to eq true
+          expect(%i(public_token plugins).all? { |key| subject.public_send(key).is_a?(String) }).to eq true
+          expect(%i(css js).all? { |filetype| subject.public_send(:editor_files).public_send(filetype).is_a?(String) }).to eq true
+          expect(%i(css json).all? { |filetype| subject.public_send(:theme_files).public_send(filetype).is_a?(String) }).to eq true
         end
       end
     end
