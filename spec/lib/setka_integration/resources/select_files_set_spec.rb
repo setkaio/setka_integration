@@ -19,7 +19,7 @@ RSpec.describe SetkaIntegration::Resources::SelectFilesSet do
       it 'returns some files' do
         VCR.use_cassette 'select_files_sync/with_part_select_set', allow_playback_repeats: true do
           expect(subject[:public_token]).not_to be_empty
-          expect(%i(plugins amp_styles).all? { |key| subject[key].compact.present? }).to eq true
+          expect(%i(plugins amp_styles).all? { |key| subject[key].present? }).to eq true
           expect(%i(editor_files theme_files standalone_styles fonts icons).all? { |key| subject[key].nil? }).to eq true
         end
       end
@@ -31,7 +31,7 @@ RSpec.describe SetkaIntegration::Resources::SelectFilesSet do
       it 'return plugins' do
         VCR.use_cassette 'select_files_sync/with_invalid_select_set', allow_playback_repeats: true do
           expect(subject[:public_token]).not_to be_empty
-          expect(%i(plugins).all? { |key| subject[key].compact.present? }).to eq true
+          expect(%i(plugins).all? { |key| subject[key].present? }).to eq true
           expect(%i(amp_styles editor_files theme_files standalone_styles icons fonts).all? { |key| subject[key].nil? }).to eq true
         end
       end
@@ -79,7 +79,7 @@ RSpec.describe SetkaIntegration::Resources::SelectFilesSet do
     context 'with part select set' do
       it 'return plugins' do
         VCR.use_cassette 'select_files_sync/with_part_select_set', allow_playback_repeats: true do
-          is_expected.to be_kind_of Array
+          is_expected.to be_kind_of String
           is_expected.not_to be_empty
         end
       end
@@ -168,9 +168,9 @@ RSpec.describe SetkaIntegration::Resources::SelectFilesSet do
     context 'with valid options' do
       it 'return amp styles' do
         VCR.use_cassette 'select_files_sync/with_part_select_set', allow_playback_repeats: true do
-          expect(subject.dig('common').all? { |common| common.is_a?(String) }).to eq true
-          expect(subject.dig('themes').all? { |themes| themes.is_a?(String) }).to eq true
-          expect(subject.dig('layouts').all? { |layouts| layouts.is_a?(String) }).to eq true
+          expect(subject['common']).to be_kind_of String
+          expect(subject['themes'].all? { |themes| themes.is_a?(String) }).to eq true
+          expect(subject['layouts'].all? { |layouts| layouts.is_a?(String) }).to eq true
         end
       end
     end

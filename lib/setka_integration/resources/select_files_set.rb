@@ -10,7 +10,7 @@ module SetkaIntegration
       def plugins
         if options.include?(:plugins)
           response_data do
-            request.body['plugins']&.map { |plugin| plugin['url'] }
+            request.body['plugins'].dig(0, 'url')
           end
         end
       end
@@ -18,7 +18,16 @@ module SetkaIntegration
       def editor_files
         if options.include?(:editor)
           response_data do
-            request.body['editor_files']&.map { |editor_file| editor_file['url'] }
+            filetypes = request.body['editor_files']&.map { |h| h['filetype'].to_sym }&.uniq
+            return if filetypes.blank?
+
+            response_struct = Struct.new(*filetypes)
+
+            urls = filetypes.map do |filetype|
+              request.body['editor_files'].find { |file| file['filetype'] == filetype.to_s }['url']
+            end
+
+            response_struct.new(*urls)
           end
         end
       end
@@ -26,7 +35,16 @@ module SetkaIntegration
       def theme_files
         if options.include?(:theme)
           response_data do
-            request.body['theme_files']&.map { |theme_file| theme_file['url'] }
+            filetypes = request.body['theme_files']&.map { |h| h['filetype'].to_sym }&.uniq
+            return if filetypes.blank?
+
+            response_struct = Struct.new(*filetypes)
+
+            urls = filetypes.map do |filetype|
+              request.body['theme_files'].find { |file| file['filetype'] == filetype.to_s }['url']
+            end
+
+            response_struct.new(*urls)
           end
         end
       end
@@ -34,9 +52,19 @@ module SetkaIntegration
       def standalone_styles
         if options.include?(:standalone)
           response_data do
-            request.body['standalone_styles']&.inject({}) do |hash, (key, group)|
-              hash.merge({ key => group.map { |group_file| group_file['url'] } })
+            response_hash = request.body['standalone_styles']&.inject({}) do |hash, (key, group)|
+              if group.count > 1
+                hash.merge({ key => group.map { |group_file| group_file['url'] } })
+              else
+                hash.merge({ key => group[0]['url'] })
+              end
             end
+
+            return {} if response_hash.nil?
+
+            response_hash.symbolize_keys!
+            response_struct = Struct.new(*response_hash.keys)
+            response_struct.new(*response_hash.values_at(*response_struct.members))
           end
         end
       end
@@ -44,9 +72,19 @@ module SetkaIntegration
       def amp_styles
         if options.include?(:amp)
           response_data do
-            request.body['amp_styles']&.inject({}) do |hash, (key, group)|
-              hash.merge({ key => group.map { |group_file| group_file['url'] } })
+            response_hash = request.body['amp_styles']&.inject({}) do |hash, (key, group)|
+              if group.count > 1
+                hash.merge({ key => group.map { |group_file| group_file['url'] } })
+              else
+                hash.merge({ key => group[0]['url'] })
+              end
             end
+
+            return {} if response_hash.nil?
+
+            response_hash.symbolize_keys!
+            response_struct = Struct.new(*response_hash.keys)
+            response_struct.new(*response_hash.values_at(*response_struct.members))
           end
         end
       end
@@ -69,17 +107,8 @@ module SetkaIntegration
 
       private
 
-      def full_set
-        {
-          public_token: public_token,
-          plugins: plugins,
-          editor_files: editor_files,
-          theme_files: theme_files,
-          standalone_styles: standalone_styles,
-          amp_styles: amp_styles,
-          fonts: fonts,
-          icons: icons
-        }.compact
+      def hash_keys
+        %i(public_token plugins editor_files theme_files standalone_styles amp_styles fonts icons)
       end
 
       def request

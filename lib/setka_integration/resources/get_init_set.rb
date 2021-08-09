@@ -9,7 +9,7 @@ module SetkaIntegration
 
       def plugins
         response_data do
-          request.body['plugins'][0]['url']
+          request.body['plugins'].dig(0, 'url')
         end
       end
 
@@ -51,8 +51,11 @@ module SetkaIntegration
             else
               hash.merge({ key => group[0]['url'] })
             end
-          end.symbolize_keys
+          end
 
+          return {} if response_hash.nil?
+
+          response_hash.symbolize_keys!
           response_struct = Struct.new(*response_hash.keys)
           response_struct.new(*response_hash.values_at(*response_struct.members))
         end

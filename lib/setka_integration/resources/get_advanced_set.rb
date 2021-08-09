@@ -9,7 +9,7 @@ module SetkaIntegration
 
       def plugins
         response_data do
-          request.body['plugins'][0]['url']
+          request.body['plugins'].dig(0, 'url')
         end
       end
 
@@ -51,8 +51,11 @@ module SetkaIntegration
             else
               hash.merge({ key => group[0]['url'] })
             end
-          end.symbolize_keys
+          end
 
+          return {} if response_hash.nil?
+
+          response_hash.symbolize_keys!
           response_struct = Struct.new(*response_hash.keys)
           response_struct.new(*response_hash.values_at(*response_struct.members))
         end
@@ -60,14 +63,17 @@ module SetkaIntegration
 
       def amp_styles
         response_data do
-          response_hash = request.body['standalone_styles']&.inject({}) do |hash, (key, group)|
+          response_hash = request.body['amp_styles']&.inject({}) do |hash, (key, group)|
             if group.count > 1
               hash.merge({ key => group.map { |group_file| group_file['url'] } })
             else
               hash.merge({ key => group[0]['url'] })
             end
-          end.symbolize_keys
+          end
 
+          return {} if response_hash.nil?
+
+          response_hash.symbolize_keys!
           response_struct = Struct.new(*response_hash.keys)
           response_struct.new(*response_hash.values_at(*response_struct.members))
         end

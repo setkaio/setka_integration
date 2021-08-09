@@ -77,8 +77,8 @@ RSpec.describe SetkaIntegration::Options do
     context 'with valid token' do
       it 'returns Setka editor amp styles' do
         VCR.use_cassette 'advanced_sync/with_amp_options', allow_playback_repeats: true do
-          expect(%i(common common_critical common_deferred).all? { |key| subject.public_send(:amp_styles)[key].is_a?(String) }).to eq true
-          expect(%i(themes layouts themes_critical themes_deferred).all? { |key| subject.public_send(:amp_styles)[key].is_a?(Array) }).to eq true
+          expect(%i(common).all? { |key| subject.amp_styles[key].is_a?(String) }).to eq true
+          expect(%i(themes layouts).all? { |key| subject.amp_styles[key].is_a?(Array) }).to eq true
         end
       end
     end
