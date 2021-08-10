@@ -2,48 +2,39 @@ module SetkaIntegration
   class Select
     class << self
       def all
-        opts = 'plugins,editor,theme,standalone,amp,fonts,icons'
-        files(opts)
+        files('plugins,editor,theme,standalone,amp,fonts,icons')
       end
 
       def public_token
-        opts = ''
-        files(opts)[:public_token]
+        files('public_token')[:public_token]
       end
 
       def plugins
-        opts = 'plugins'
-        files(opts)[:plugins]
+        files('plugins')[:plugins]
       end
 
       def editor_files
-        opts = 'editor'
-        files(opts)[:editor_files]
+        files('editor')[:editor_files]
       end
 
       def theme_files
-        opts = 'theme'
-        files(opts)[:theme_files]
+        files('theme')[:theme_files]
       end
 
       def amp_styles
-        opts = 'amp'
-        files(opts)[:amp_styles]
+        files('amp')[:amp_styles]
       end
 
       def standalone_styles
-        opts = 'standalone'
-        files(opts)[:standalone_styles]
+        files('standalone')[:standalone_styles]
       end
 
       def icons
-        opts = 'icons'
-        files(opts)[:icons]
+        files('icons')[:icons]
       end
 
       def fonts
-        opts = 'fonts'
-        files(opts)[:fonts]
+        files('fonts')[:fonts]
       end
 
       def files(opts)

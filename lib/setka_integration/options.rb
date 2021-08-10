@@ -10,11 +10,11 @@ module SetkaIntegration
       end
 
       def editor_files
-        files('editor_files')[:editor_files]
+        files('editor')[:editor_files]
       end
 
       def theme_files
-        files('theme_files')[:theme_files]
+        files('theme')[:theme_files]
       end
 
       def amp_styles
@@ -22,7 +22,7 @@ module SetkaIntegration
       end
 
       def standalone_styles
-        files('standalone_styles')[:standalone_styles]
+        files('standalone')[:standalone_styles]
       end
 
       def icons
