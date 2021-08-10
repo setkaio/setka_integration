@@ -1,58 +1,52 @@
 module SetkaIntegration
   class Select
     class << self
-      def files(opts)
-        select_files_set(opts)
-      end
-
       def all
         opts = 'plugins,editor,theme,standalone,amp,fonts,icons'
-        select_files_set(opts)
+        files(opts)
       end
 
       def public_token
         opts = ''
-        select_files_set(opts)
+        files(opts)[:public_token]
       end
 
       def plugins
         opts = 'plugins'
-        select_files_set(opts)
+        files(opts)[:plugins]
       end
 
       def editor_files
         opts = 'editor'
-        select_files_set(opts)
+        files(opts)[:editor_files]
       end
 
       def theme_files
         opts = 'theme'
-        select_files_set(opts)
-      end
-
-      def standalone_styles
-        opts = 'standalone'
-        select_files_set(opts)
+        files(opts)[:theme_files]
       end
 
       def amp_styles
         opts = 'amp'
-        select_files_set(opts)
+        files(opts)[:amp_styles]
       end
 
-      def fonts
-        opts = 'fonts'
-        select_files_set(opts)
+      def standalone_styles
+        opts = 'standalone'
+        files(opts)[:standalone_styles]
       end
 
       def icons
         opts = 'icons'
-        select_files_set(opts)
+        files(opts)[:icons]
       end
 
-      private
+      def fonts
+        opts = 'fonts'
+        files(opts)[:fonts]
+      end
 
-      def select_files_set(opts)
+      def files(opts)
         SetkaIntegration::Resources::SelectFilesSet.(SetkaIntegration::Config, opts)
       end
     end
