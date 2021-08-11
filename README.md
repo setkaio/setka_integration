@@ -9,7 +9,7 @@ Documentation for the Setka Editor API: https://setka.gitbook.io/help-center/api
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'setka_integration', git: 'https://github.com/setkaio/setka_integration'
+gem 'setka_integration', '~> 0.2.0', git: 'https://github.com/setkaio/setka_integration'
 ```
 
 And then execute:
@@ -70,15 +70,15 @@ Also, you have request to receive files for full options list:
 SetkaIntegration::Select.all
 ```
 
-And, if you want, you have requests to get single kind of files:
+And, if you want, there are example requests you have to get single kind of files:
 
 ```ruby
 SetkaIntegration::Select.public_token
 SetkaIntegration::Select.plugins
-SetkaIntegration::Select.editor_files
-SetkaIntegration::Select.theme_files
-SetkaIntegration::Select.standalone_styles
-SetkaIntegration::Select.amp_styles
+SetkaIntegration::Select.editor_files.css
+SetkaIntegration::Select.theme_files.json
+SetkaIntegration::Select.standalone_styles.themes_critical
+SetkaIntegration::Select.amp_styles.common
 SetkaIntegration::Select.fonts
 SetkaIntegration::Select.icons
 ```

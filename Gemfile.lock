@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    setka_integration (0.1.0)
+    setka_integration (0.2.0)
       activesupport (>= 3.0)
 
 GEM
